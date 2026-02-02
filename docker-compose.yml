@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # NetCtrl UI
+  netctrl-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: netctrl-ui
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    networks:
+      - netctrl-network
+
+  # Optional: Include netctrl-server if running together
+  # Uncomment and configure if you want to run both services together
+  # netctrl-server:
+  #   image: netctrl-server:latest
+  #   container_name: netctrl-server
+  #   ports:
+  #     - "8080:8080"
+  #     - "9090:9090"
+  #   environment:
+  #     - LOG_LEVEL=info
+  #   restart: unless-stopped
+  #   networks:
+  #     - netctrl-network
+
+networks:
+  netctrl-network:
+    driver: bridge
